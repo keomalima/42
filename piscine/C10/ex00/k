@@ -1,0 +1,128 @@
+#include <unistd.h>
+
+int	ft_add(int a, int b)
+{
+	return (a + b);
+}
+
+int	ft_subtract(int a, int b)
+{
+	return (a - b);
+}
+
+int	ft_divide(int a, int b)
+{
+	return (a / b);
+}
+
+int	ft_multiply(int a, int b)
+{
+	return (a * b);
+}
+
+int	ft_modulo(int a, int b)
+{
+	return (a % b);
+}
+
+int	ft_strcmp(char *str, char c)
+{
+	while (*str)
+	{
+		if (*str++ != c)
+			return (0);
+	}
+	return (1);
+}
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putnbr(int nb)
+{
+	if (nb < 0)
+	{
+		if (nb == -2147483648)
+		{
+			write(1, "-2147483648", 11);
+			return ;
+		}
+		write(1, "-", 1);
+		nb = -nb;
+	}
+	if (nb > 9)
+		ft_putnbr(nb / 10);
+	ft_putchar(nb % 10 + '0');
+}
+
+int	ft_atoi(char *str)
+{
+	int	sign;
+	int	nb;
+
+	sign = 1;
+	nb = 0;
+	while (*str == ' ' || (*str >= '\r' && *str <= '\t'))
+		str++;
+	while (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			sign *= -1;
+		str++;
+	}
+	while (*str >= '0' && *str <= '9')
+	{
+		nb = (nb * 10) + (*str - '0');
+		str++;
+	}
+	return (nb * sign);
+}
+
+void	ft_calculator(int v1, int v2, char *sign, int(*f[])(int, int))
+{
+	if (ft_strcmp(sign, '+'))
+		ft_putnbr(f[0](v1, v2));
+	else if (ft_strcmp(sign, '-'))
+		ft_putnbr(f[1](v1, v2));
+	else if (ft_strcmp(sign, '/'))
+		ft_putnbr(f[2](v1, v2));
+	else if (ft_strcmp(sign, '*'))
+		ft_putnbr(f[3](v1, v2));
+	else if (ft_strcmp(sign, '%'))
+		ft_putnbr(f[4](v1, v2));
+	else
+		write(1, "0", 1);
+}
+
+void	ft_do_op(char **av)
+{
+	int	(*operations[])(int, int) = {ft_add, ft_subtract, ft_divide, ft_multiply,ft_modulo};
+	int	valeur1;
+	int	valeur2;
+
+	valeur1 = ft_atoi(av[1]);
+	valeur2 = ft_atoi(av[3]);
+	if (ft_strcmp(av[2], '/') && valeur2 == 0)
+	{
+		write(1, "Stop : division by zero", 23);
+		return ;
+	}
+	if (ft_strcmp(av[2], '%') && valeur2 == 0)
+	{
+		write(1, "Stop : modulo by zero", 21);
+		return ;
+	}
+	else
+		ft_calculator(valeur1, valeur2, av[2], operations);
+}
+
+int	main(int ac, char **av)
+{
+	if (ac != 4)
+		return (0);
+	else
+		ft_do_op(av);
+	return (0);
+}
