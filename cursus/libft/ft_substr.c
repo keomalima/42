@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keomalima <keomalima@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kricci-d <kricci-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 10:55:32 by keomalima         #+#    #+#             */
-/*   Updated: 2024/09/20 11:38:31 by keomalima        ###   ########.fr       */
+/*   Created: 2024/11/05 13:53:07 by kricci-d          #+#    #+#             */
+/*   Updated: 2024/11/07 15:35:56 by kricci-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,16 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	size_t	j;
+	size_t	s_len;
 	char	*str;
 
+	if (!s)
+		return (NULL);
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+		return (ft_strdup(""));
+	if (len > s_len - start)
+		len = s_len - start;
 	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
@@ -26,28 +34,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	while (s[i])
 	{
 		if (i >= start && j < len)
-		{
-			str[j] = s[i];
-			j++;
-		}
+			str[j++] = s[i];
 		i++;
 	}
 	str[j] = '\0';
 	return (str);
 }
-
-/*
-# Definition
-This function returns a new string starting from the given index `start`
-and of length `len` from the original string `s`.
-
-# Explanation
-- Check if `start` is greater than or equal to the length of `s`.
-- Determine the actual length of the substring:
-	- If `len` exceeds the remaining length of `s` after `start`,
-	adjust `len` to fit.
-	- Otherwise, use `len` as is.
-- Allocate memory for the new string.
-- Copy the characters from `s` to the new string, stopping after
-`len`characters or when the end of `s` is reached.
-*/

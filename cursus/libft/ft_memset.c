@@ -3,26 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keomalima <keomalima@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kricci-d <kricci-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 11:38:41 by keomalima         #+#    #+#             */
-/*   Updated: 2024/09/19 12:42:32 by keomalima        ###   ########.fr       */
+/*   Created: 2024/11/04 14:45:52 by kricci-d          #+#    #+#             */
+/*   Updated: 2024/11/06 13:11:10 by kricci-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+void	*ft_memset(void *s, int c, size_t n)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < len)
-	{
-		((unsigned char *)b)[i] = (unsigned char)c;
-		i++;
-	}
-	return (b);
+	while (n > i)
+		((unsigned char *)s)[i++] = (unsigned char)c;
+	return (s);
 }
-
-//Sets n bytes of the memory area pointed to by s to c.

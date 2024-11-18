@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keomalima <keomalima@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kricci-d <kricci-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/13 11:45:54 by keomalima         #+#    #+#             */
-/*   Updated: 2024/09/20 11:12:02 by keomalima        ###   ########.fr       */
+/*   Created: 2024/11/04 17:36:41 by kricci-d          #+#    #+#             */
+/*   Updated: 2024/11/06 12:30:05 by kricci-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,14 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int	i;
+	int	s_len;
 
-	i = ft_strlen(s);
-	while (i >= 0)
+	s_len = ft_strlen(s);
+	while (s_len >= 0)
 	{
-		if (s[i] == (char)c)
-			return ((char *)(s + i));
-		i--;
+		if (s[s_len] == (char) c)
+			return ((char *)(s + s_len));
+		s_len--;
 	}
 	return (NULL);
 }
-
-//Returns the last occurrence of C in S

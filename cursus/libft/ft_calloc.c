@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keomalima <keomalima@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kricci-d <kricci-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/15 12:34:07 by keomalima         #+#    #+#             */
-/*   Updated: 2024/09/15 13:10:20 by keomalima        ###   ########.fr       */
+/*   Created: 2024/11/05 13:28:39 by kricci-d          #+#    #+#             */
+/*   Updated: 2024/11/12 14:35:47 by kricci-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	void	*p;
+	void	*ptr;
 
-	p = malloc(size * count);
-	if (!p)
+	if (count == 0 || size == 0)
+		return (malloc(0));
+	if (count >= INT_MAX / size)
 		return (NULL);
-	ft_bzero (p, count * size);
-	return (p);
+	ptr = malloc(count * size);
+	if (!ptr)
+		return (NULL);
+	ft_memset(ptr, 0, count * size);
+	return (ptr);
 }
-
-//Allocates memory for n Objects * size (it could be
-//int, char etc). Then it sets all byts to 0.

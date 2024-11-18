@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keomalima <keomalima@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kricci-d <kricci-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 16:02:55 by keomalima         #+#    #+#             */
-/*   Updated: 2024/09/19 13:21:25 by keomalima        ###   ########.fr       */
+/*   Created: 2024/11/07 14:19:36 by kricci-d          #+#    #+#             */
+/*   Updated: 2024/11/12 08:56:54 by kricci-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,24 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*list;
-	t_list	*n;
+	t_list	*node;
+	t_list	*new_list;
 
-	list = NULL;
-	if (!f || !del)
+	new_list = NULL;
+	if (!f || !del || !lst)
 		return (NULL);
 	while (lst)
 	{
-		n = ft_lstnew(f(lst->content));
-		if (!n)
+		node = malloc(sizeof(t_list));
+		if (!node)
 		{
-			ft_lstclear(&n, del);
+			ft_lstclear(&new_list, del);
 			return (NULL);
 		}
-		ft_lstadd_back(&list, n);
+		node->content = f(lst->content);
+		node->next = NULL;
+		ft_lstadd_back(&new_list, node);
 		lst = lst->next;
 	}
-	return (list);
+	return (new_list);
 }
-
-/*
-# Definition
-This function creates a new linked list by applying the function `f`
-to each element of the original list `lst`.
-It returns the newly created list.
-
-# Explanation
-- Traverse the original list `lst`:
-    - Apply function `f` to the content of each node.
-    - Create a new node with the transformed content.
-    - Add the new node to the end of the new list `list`.
-    - If node creation fails, clear the newly created list and return `NULL`.
-*/

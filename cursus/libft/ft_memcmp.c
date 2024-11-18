@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keomalima <keomalima@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kricci-d <kricci-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/13 15:00:15 by keomalima         #+#    #+#             */
-/*   Updated: 2024/09/13 15:32:06 by keomalima        ###   ########.fr       */
+/*   Created: 2024/11/04 18:05:54 by kricci-d          #+#    #+#             */
+/*   Updated: 2024/11/06 11:45:29 by kricci-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,3 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	}
 	return (0);
 }
-
-/*
-Compares the first n bytes of two memory blocks (s1 and s2) and returns the
-difference between the first differing bytes, or 0 if they are identical.
-*/

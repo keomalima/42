@@ -3,70 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keomalima <keomalima@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kricci-d <kricci-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 14:14:44 by keomalima         #+#    #+#             */
-/*   Updated: 2024/09/17 16:02:48 by keomalima        ###   ########.fr       */
+/*   Created: 2024/11/06 08:57:24 by kricci-d          #+#    #+#             */
+/*   Updated: 2024/11/06 13:00:35 by kricci-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_int_size(int n)
+int	num_len(int n)
 {
-	int		int_size;
-	long	nbr;
+	int	len;
 
-	nbr = n;
-	int_size = 0;
-	if (nbr < 0)
+	len = 1;
+	if (n < 0)
 	{
-		nbr = -nbr;
-		int_size++;
+		if (n == -2147483648)
+			return (11);
+		len++;
+		n *= -1;
 	}
-	if (nbr == 0)
-		return (1);
-	while (nbr > 0)
+	while (n > 9)
 	{
-		nbr /= 10;
-		int_size++;
+		len++;
+		n /= 10;
 	}
-	return (int_size);
+	return (len);
 }
 
-static char	*ft_str_populate(char *str, int n, int size)
+void	populate_str(int n, char *str, int len)
 {
-	long	nbr;
-	int		i;
-
-	nbr = n;
-	i = 0;
-	if (nbr < 0)
+	str[len] = '\0';
+	if (n < 0)
 	{
-		str[i] = '-';
-		nbr = -nbr;
+		str[0] = '-';
+		if (n == -2147483648)
+		{
+			str[--len] = '8';
+			n /= -10;
+		}
+		else
+			n *= -1;
 	}
-	if (nbr == 0)
-		str[i] = '0';
-	while (nbr > 0)
+	while (n > 9)
 	{
-		str[size - i - 1] = (nbr % 10) + '0';
-		nbr /= 10;
-		i++;
+		str[--len] = (n % 10) + '0';
+		n /= 10;
 	}
-	str[size] = '\0';
-	return (str);
+	str[--len] = n + '0';
 }
 
 char	*ft_itoa(int n)
 {
-	int		int_size;
 	char	*str;
+	int		str_len;
 
-	int_size = ft_int_size(n);
-	str = malloc(sizeof (char) * int_size + 1);
+	str_len = num_len(n);
+	str = malloc(sizeof(char) * (str_len + 1));
 	if (!str)
 		return (NULL);
-	ft_str_populate(str, n, int_size);
+	populate_str(n, str, str_len);
 	return (str);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keomalima <keomalima@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kricci-d <kricci-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/13 10:35:41 by keomalima         #+#    #+#             */
-/*   Updated: 2024/09/13 14:55:07 by keomalima        ###   ########.fr       */
+/*   Created: 2024/11/04 17:09:22 by kricci-d          #+#    #+#             */
+/*   Updated: 2024/11/04 17:36:59 by kricci-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,3 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)s);
 	return (NULL);
 }
-
-// Finds the first occurrence of C in S and returns a pointer
