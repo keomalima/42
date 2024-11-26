@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kricci-d <kricci-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:10:28 by keomalima         #+#    #+#             */
-/*   Updated: 2024/11/26 09:53:28 by kricci-d         ###   ########.fr       */
+/*   Updated: 2024/11/26 09:53:38 by kricci-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strncpy(char *dest, const char *src, size_t n)
 {
@@ -93,7 +93,7 @@ char	*fill_stash(int fd, char *buffer, char *stash)
 
 char	*get_next_line(int fd)
 {
-	static char	*stash;
+	static char	*stash[OPEN_MAX];
 	char		*buffer;
 	char		*line;
 
@@ -101,18 +101,18 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || !buffer || read(fd, 0, 0) < 0)
 	{
 		free(buffer);
-		if (stash)
+		if (stash[fd])
 		{
-			free(stash);
-			stash = NULL;
+			free(stash[fd]);
+			stash[fd] = NULL;
 		}
 		return (NULL);
 	}
-	stash = fill_stash(fd, buffer, stash);
+	stash[fd] = fill_stash(fd, buffer, stash[fd]);
 	free(buffer);
-	if (!stash)
+	if (!stash[fd])
 		return (NULL);
-	line = get_line(stash);
-	stash = update_stash(stash);
+	line = get_line(stash[fd]);
+	stash[fd] = update_stash(stash[fd]);
 	return (line);
 }
